@@ -7,7 +7,7 @@ import Loader from "./Loader";
 import { ToastContainer, toast } from "react-toastify";
 
 
-const clientId = `${process.env.CLIENT_ID}`;
+const clientId = "204761840995-36omp54cntsqs8r5aqud0mu99gqfl1pk.apps.googleusercontent.com";
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 
