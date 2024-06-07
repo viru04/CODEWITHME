@@ -28,7 +28,7 @@ const RoomData = () => {
 
     useEffect(() => {
 
-        toast.success(`Welcome to CodeCast ${user.name}`, {
+        toast.success(`Welcome to CODEWITME ${user.name}`, {
             position: toast.POSITION.TOP_RIGHT
         });
 
