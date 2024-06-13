@@ -42,8 +42,8 @@ const CodeEditor = ({
     const [input, setInput] = useState('');
     const [output, setOutput] = useState('');
     const EditorRef = useRef(null);
-    let [code, setCode] = useState(currRoom ? currRoom.code : defaultCode[language ? language : "javascript"]);
-    const [language, setLanguage] = useState(currRoom ? currRoom.language : "javascript");
+    let [code, setCode] = useState(currRoom ? currRoom.code : defaultCode[language ? language : "cpp17"]);
+    const [language, setLanguage] = useState(currRoom ? currRoom.language : "cpp17");
     const [running, setRunning] = useState(false);
 
 
@@ -60,8 +60,8 @@ const CodeEditor = ({
         setRunning(true);
         const id = toast.loading("Compiling...")
         await axios({
-            url: "https://codewithme-backend.onrender.com/" + 'code/execute',
             method: 'post',
+            url: "https://codewithme-backend.onrender.com/code/execute",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('user')}`
             },
@@ -69,7 +69,9 @@ const CodeEditor = ({
                 code,
                 input,
                 language
-            }
+            },
+            
+            
         })
             .then((res) => {
                 toast.update(id, { render: "Compiled successfully", type: "success", isLoading: false, autoClose: 1000 });
@@ -79,10 +81,12 @@ const CodeEditor = ({
                 IOEMIT(input, result, language)
             })
             .catch((err) => {
+                console.log(err)
                 toast.update(id, { render: "Compilation failed", type: "error", isLoading: false, autoClose: 1500 });
                 setRunning(false);
-                console.log("error from axios", err)
-            })
+                console.error("error from axios", err.response.data);
+            });
+            
     }
 
     const sendCode = (patch) => {
